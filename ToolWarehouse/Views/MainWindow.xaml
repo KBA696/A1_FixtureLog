@@ -1,0 +1,71 @@
+﻿<Window x:Class="FixtureLog.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:ivm="clr-namespace:FixtureLog.ViewModels.DataContext"
+        d:DataContext="{d:DesignInstance Type=ivm:MainWindow, IsDesignTimeCreatable=False}"
+
+        Title="Журнал оснастки" Icon="/Asset/ico.ico" WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        Height="450" MinHeight="450" Width="800" MinWidth="800">
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding Clear}"  CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+    </Window.InputBindings>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox ItemsSource="{Binding SearchOptions}" SelectedValue="{Binding SearchOptionsSelected}" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,5,0"/>
+            <TextBox Margin="5,0,40,0" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2" Text="{Binding SearchBar, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="х" Command="{Binding Clear}" Visibility="{Binding ClearButton}" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2" Height="30" Padding="10,1"/>
+        </Grid>
+
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Добавить оснастку" Command="{Binding OpenFixtureAddChange}" CommandParameter="0" Padding="5,1" Margin="10,0,5,0"/>
+            <Button Content="Изменить оснастку" Command="{Binding OpenFixtureAddChange}" CommandParameter="1" Padding="5,1" Margin="5,0,5,0" Grid.Column="1"/>
+            <Button Content="Типы оснасток" Command="{Binding Path=OpenTypesFixtures}" Padding="5,1" Margin="5,0,5,0" Grid.Column="2" />
+        </Grid>
+
+        <DataGrid ItemsSource="{Binding Fixtures}" SelectedItem="{Binding FixtureSelected}" RowHeaderWidth="0" CanUserAddRows="False"  AutoGenerateColumns="False" Grid.Row="2" Margin="0,5,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="Обозначение"  Binding="{Binding Designation}"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Название"  Binding="{Binding Name}"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Тип"  Binding="{Binding FixtureTip}"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Дата создания"  Binding="{Binding DateCreation, StringFormat=dd.MM.yyyy}"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Дата изготовления"  Binding="{Binding DateManufacturing, StringFormat=dd.MM.yyyy}"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Примечание (место хронения)"  Binding="{Binding Note}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Удалить"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="X" Command="{Binding Path=DataContext.RemoveSnap,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
