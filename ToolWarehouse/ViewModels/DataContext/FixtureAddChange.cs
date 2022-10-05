@@ -18,13 +18,12 @@ namespace FixtureLog.ViewModels.DataContext
             action = (addFixture == "0");
             if (action)
             {
-                //делать копию
                 Temp = new Fixture();
                 _fixtureTip = DataBase.GetInstance().FixturesTips.First();
             }
             else
             {
-                Temp = mainWindow.FixtureSelected;
+                Temp = new Fixture(mainWindow.FixtureSelected);
                 _fixtureTip = DataBase.GetInstance().FixturesTips.First(x => x.Id == mainWindow.FixtureSelected.IdFixtureTip);               
             }
         }

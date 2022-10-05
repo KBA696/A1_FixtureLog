@@ -1,5 +1,4 @@
-﻿using System;
-using FixtureLog.ViewModels;
+﻿using FixtureLog.ViewModels;
 using FixtureLog.ViewModels.MVVM;
 
 namespace FixtureLog.Models
@@ -9,11 +8,27 @@ namespace FixtureLog.Models
     /// </summary>
     public class Fixture : NotificationObject
     {
-        int _Id;
+        public Fixture() { }
+        /// <summary>
+        /// Создаем копию оснастки
+        /// </summary>
+        /// <param name="fixture"></param>
+        public Fixture(Fixture fixture)
+        {
+            Id = fixture.Id;
+            Designation = fixture.Designation;
+            Name = fixture.Name;
+            IdFixtureTip = fixture.IdFixtureTip;
+            DateCreation = fixture.DateCreation;
+            DateManufacturing = fixture.DateManufacturing;
+            Note = fixture.Note;
+        }
+
+        long _Id;
         /// <summary>
         /// Id
         /// </summary>
-        public int Id
+        public long Id
         {
             get { return _Id; }
             set
@@ -24,11 +39,11 @@ namespace FixtureLog.Models
             }
         }
 
-        string? _Designation;
+        string _Designation = "";
         /// <summary>
         /// Обозначение
         /// </summary>
-        public string? Designation
+        public string Designation
         {
             get { return _Designation; }
             set
@@ -39,11 +54,11 @@ namespace FixtureLog.Models
             }
         }
 
-        string? _Name;
+        string? _Name = "";
         /// <summary>
         /// Название
         /// </summary>
-        public string? Name
+        public string Name
         {
             get { return _Name; }
             set
@@ -65,11 +80,11 @@ namespace FixtureLog.Models
             }
         }
 
-        int _IdFixtureTip;
+        long _IdFixtureTip = 1;
         /// <summary>
         /// Id типа оснастки
         /// </summary>
-        public int IdFixtureTip
+        public long IdFixtureTip
         {
             get { return _IdFixtureTip; }
             set
@@ -77,14 +92,15 @@ namespace FixtureLog.Models
                 if (value == _IdFixtureTip) return;
                 _IdFixtureTip = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(FixtureTip));
             }
         }
 
-        DateTime? _DateCreation;
+        object? _DateCreation;
         /// <summary>
         /// Дата создания чертежей
         /// </summary>
-        public DateTime? DateCreation
+        public object? DateCreation
         {
             get { return _DateCreation; }
             set
@@ -95,11 +111,11 @@ namespace FixtureLog.Models
             }
         }
 
-        DateTime? _DateManufacturing;
+        object? _DateManufacturing;
         /// <summary>
         /// Дата изготовления
         /// </summary>
-        public DateTime? DateManufacturing
+        public object? DateManufacturing
         {
             get { return _DateManufacturing; }
             set
@@ -110,11 +126,11 @@ namespace FixtureLog.Models
             }
         }
 
-        string? _Note;
+        object _Note = "";
         /// <summary>
         /// Примечание (место хронения)
         /// </summary>
-        public string? Note
+        public object Note
         {
             get { return _Note; }
             set

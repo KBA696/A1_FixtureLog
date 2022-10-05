@@ -7,11 +7,11 @@ namespace FixtureLog.Models
     /// </summary>
     public class FixtureTip : NotificationObject
     {
-        int _Id;
+        long _Id;
         /// <summary>
         /// Id оснастки
         /// </summary>
-        public int Id
+        public long Id
         {
             get { return _Id; }
             set
@@ -22,7 +22,7 @@ namespace FixtureLog.Models
             }
         }
 
-        string _Name;
+        string _Name="";
         /// <summary>
         /// Наименование типа оснастки
         /// </summary>
