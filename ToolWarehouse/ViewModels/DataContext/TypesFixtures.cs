@@ -179,7 +179,7 @@ namespace FixtureLog.ViewModels.DataContext
             {
                 return _Remove ??= new RelayCommand<object>(a =>
                 {
-                    DataBase.GetInstance().DELETE(new FixtureTip() { Id = (int)a });
+                    DataBase.GetInstance().DELETE(new FixtureTip() { Id = (long)a });
                 });
             }
         }

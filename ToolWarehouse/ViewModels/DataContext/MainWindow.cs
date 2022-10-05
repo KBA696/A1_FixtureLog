@@ -115,7 +115,7 @@ namespace FixtureLog.ViewModels.DataContext
                             "Поиск по обозначению" => !string.IsNullOrEmpty(x.Designation) && x.Designation.ToUpper().Contains(SearchBar.ToUpper()),
                             "Поиск по названию" => !string.IsNullOrEmpty(x.Name) && x.Name.ToUpper().Contains(SearchBar.ToUpper()),
                             "Поиск по типу" => !string.IsNullOrEmpty(x.FixtureTip) && x.FixtureTip.ToUpper().Contains(SearchBar.ToUpper()),
-                            "Поиск по примечанию" => !string.IsNullOrEmpty(x.Note) && x.Note.ToUpper().Contains(SearchBar.ToUpper()),
+                            "Поиск по примечанию" => !string.IsNullOrEmpty(x.Note.ToString()) && x.Note.ToString().ToUpper().Contains(SearchBar.ToUpper()),
                             _ => true
                         };
                     });
